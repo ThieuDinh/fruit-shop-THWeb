@@ -30,7 +30,7 @@ jobs:
           server: ftpupload.net          # Host FTP của InfinityFree
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /htdocs/           # Thư mục gốc trên Host
+          server-dir: ./thieeuwth.free.nf/htdocs/           # Thư mục gốc trên Host
           exclude: |                     # Không đẩy những file rác này lên Host
             **/.git*
             **/.git*/**
