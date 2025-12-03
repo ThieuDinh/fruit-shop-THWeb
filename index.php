@@ -1,5 +1,14 @@
+
 <?php
 // index.php
+
+// === THÊM 3 DÒNG NÀY ĐỂ BẬT LỖI 500 LÊN ===
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+// ==========================================
+
+// ... code cũ của bạn ở dưới ...
 require_once 'config/database.php'; // Gọi file kết nối
 $stmt_cat = $conn->prepare("SELECT * FROM categories");
 $stmt_cat->execute();
