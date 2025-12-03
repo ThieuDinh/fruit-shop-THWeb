@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ Cửa hàng Hoa quả</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --brand-primary: #5ff042; /* Màu xanh gốc của bạn */
+            --brand-bg-light: #f6f8f6;
+            --brand-text-dark: #132210;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--brand-bg-light);
+            color: #424242;
+        }
+
+        /* Custom Buttons & Colors để giống bản thiết kế cũ */
+        .text-brand { color: #2e7d32; } /* Xanh đậm cho text */
+        .bg-brand-soft { background-color: rgba(95, 240, 66, 0.2); }
+        
+        .btn-brand {
+            background-color: var(--brand-primary);
+            color: #052e03;
+            font-weight: 700;
+            border: none;
+        }
+        .btn-brand:hover {
+            background-color: #4ce030;
+            color: #000;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuAFajkhv2STqvjRUvGV01y0YWQm3Irza8heLe4F9hZjmYPBshOkyFIcXgPAKdrhIlvVz9DGPOZoV40G2dg3S7P99BnhWxenrDafg9TQUFYrnl-ppJ4x6WfimFHZJ8h4RvYD3SYAeFF-NfRE2yNmgsTBjF5XXo4RCodrg49NqT4AKoJLp3KTs4LaP2VMySiCWm-I9_Erq7y8FvO8I-XJFRXq8RCTBnpAtK2qLn04Nyyp9z-BgrmWVjj-KTZW12-uGp4HDUksZvbqsOb7");
+            background-size: cover;
+            background-position: center;
+            min-height: 480px;
+            border-radius: 0.75rem;
+        }
+
+        /* Horizontal Scroll for Products (giống carousel của bản cũ) */
+        .scrolling-wrapper {
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 10px; /* Hide scrollbar visual slightly */
+        }
+        .scrolling-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+        .card-product {
+            display: inline-block;
+            width: 280px;
+            white-space: normal;
+            vertical-align: top;
+            margin-right: 1rem;
+            border: none;
+            box-shadow: 0 0 8px rgba(0,0,0,0.05);
+            border-radius: 0.75rem;
+        }
+
+        /* Hover Zoom Effect cho Categories */
+        .hover-zoom-img {
+            transition: transform 0.3s ease;
+        }
+        .hover-zoom-container:hover .hover-zoom-img {
+            transform: scale(1.1);
+        }
+        .hover-zoom-container {
+            overflow: hidden;
+            border-radius: 0.75rem;
+            position: relative;
+            aspect-ratio: 4/3;
+        }
+
+        /* Material Icons Align */
+        .material-symbols-outlined {
+            vertical-align: middle;
+        }
+        
+        /* Navbar tweaks */
+        .nav-link { font-weight: 500; color: #333; }
+        .nav-link:hover { color: #2e7d32; }
+    </style>
+</head>
+<body>
+
+    <header class="border-bottom border-success-subtle bg-white sticky-top">
+        <div class="container py-3">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="material-symbols-outlined text-brand fs-2">eco</span>
+                    <h2 class="h5 fw-bold mb-0 text-dark">Cửa hàng Hoa quả</h2>
+                </div>
+
+                <nav class="d-none d-md-flex gap-4">
+                    <a class="nav-link" href="#">Trang chủ</a>
+                    <a class="nav-link" href="#">Sản phẩm</a>
+                    <a class="nav-link" href="#">Giới thiệu</a>
+                    <a class="nav-link" href="#">Liên hệ</a>
+                </nav>
+
+                <div class="d-flex align-items-center gap-3">
+                    <div class="d-none d-sm-block">
+                        <div class="input-group">
+                            <span class="input-group-text border-0 bg-brand-soft text-brand">
+                                <span class="material-symbols-outlined">search</span>
+                            </span>
+                            <input type="text" class="form-control border-0 bg-brand-soft" placeholder="Tìm kiếm...">
+                        </div>
+                    </div>
+
+                    <button class="btn bg-brand-soft text-brand fw-bold d-flex align-items-center px-3">
+                        <span class="material-symbols-outlined">shopping_cart</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container my-4">
+        
+        <section class="mt-3">
+            <div class="hero-section d-flex flex-column justify-content-end p-4 p-md-5">
+                <div class="text-white mb-4">
+                    <h1 class="display-4 fw-black mb-2">Trái Cây Tươi Ngon Cho Ngày Mới Năng Động</h1>
+                    <p class="lead fs-6">Khám phá bộ sưu tập trái cây tươi ngon, được tuyển chọn kỹ lưỡng và giao hàng tận nơi.</p>
+                </div>
+                <div>
+                    <button class="btn btn-brand px-4 py-2 rounded-3">Mua ngay</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-5">
+            <h2 class="h4 fw-bold mb-4">Sản Phẩm Nổi Bật</h2>
+            <div class="scrolling-wrapper py-2">
+                
+                <div class="card card-product bg-white">
+                    <div class="ratio ratio-1x1 rounded-top-3" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC_OwL1pTxP6NUexi8O1vV77cyC4Mj0_FPulATIOzniNFWeE6a0e_qyBl2k-jajre_xbcIi8xANIxJKwplHVd7fIE00eatyZfHk6LBfgr6ud_oimceDlZ9sPHlKO5Gx9ALWn6PEBMI8xTBA22Su7Lp0_IKDDIMx3atSKbBEC1nsZAe-a8mBMazWt_zrGImV-0mfFdSUeol-BAchRAluFKdCwhV2XHWYnsFfl_zSyZsVZxRNikdUyaGHNKHMQQKI9iIK98ChmLsKwqZz'); background-size: cover; background-position: center;"></div>
+                    <div class="card-body d-flex flex-column gap-2">
+                        <div>
+                            <h5 class="card-title fs-6 fw-bold mb-1">Dâu tây</h5>
+                            <p class="card-text text-brand small">150.000đ / kg</p>
+                        </div>
+                        <button class="btn bg-brand-soft text-brand fw-bold w-100 mt-auto btn-sm py-2">Thêm vào giỏ</button>
+                    </div>
+                </div>
+
+                <div class="card card-product bg-white">
+                    <div class="ratio ratio-1x1 rounded-top-3" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDBpEm4-KPRTnLCwVGjdqJQxoXIKsjMHqoCNgG9gs-Sgq1heo72tHel00sU7N_iKByV9_4LVPu7yyd8ZhQA2oYbUhPxm2D6TaCtNFPFPsDwmP9jL61o_ffzz7idReTpb8vNnjH4QRfl1bjB0yVGema3yhsXZG7oExOGvUHv-dgv-pkFxw_W7u3teVrMZIBq74o1V0UvwWngGkGDYcVy3-ok3lykY0oAI_GqsfaLFw0eef-19yEKyOCEh4cxA9pP6RK3pbEDU4JvqRRp'); background-size: cover; background-position: center;"></div>
+                    <div class="card-body d-flex flex-column gap-2">
+                        <div>
+                            <h5 class="card-title fs-6 fw-bold mb-1">Nho xanh</h5>
+                            <p class="card-text text-brand small">120.000đ / kg</p>
+                        </div>
+                        <button class="btn bg-brand-soft text-brand fw-bold w-100 mt-auto btn-sm py-2">Thêm vào giỏ</button>
+                    </div>
+                </div>
+
+                <div class="card card-product bg-white">
+                    <div class="ratio ratio-1x1 rounded-top-3" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB6FVy5bw-bJXVsJZ7xCbF28gmCM5dNplIWgK7vREqQ9USsQD57AKCeaMBc1UJ51svqVsPrp--czl-XEoUxFUE4t5oHCRixhLTyR9PDiSHnAyLXHPgQ1UdWUsgL7WU6ewFzAhMat-xMgZf2rbNXTQCMqcoNdOd_DXFMPpUeEu7m8L1S178xHI7rXGNd1bfQMJvh86n4zZyRvt9soYjgu4MalWX2xhJ30Pr_g_fhSQysY6G2RNVpIq8uT_-gw0OIHEClLO3pqxEuDl45'); background-size: cover; background-position: center;"></div>
+                    <div class="card-body d-flex flex-column gap-2">
+                        <div>
+                            <h5 class="card-title fs-6 fw-bold mb-1">Cam</h5>
+                            <p class="card-text text-brand small">60.000đ / kg</p>
+                        </div>
+                        <button class="btn bg-brand-soft text-brand fw-bold w-100 mt-auto btn-sm py-2">Thêm vào giỏ</button>
+                    </div>
+                </div>
+
+                <div class="card card-product bg-white">
+                    <div class="ratio ratio-1x1 rounded-top-3" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBblu-0KKbVYTu_sEooATg55ZfHZUvRS59jpBkgA9BkmWOsiiOsGaTMaIfHkHXa0Hr3L7VDMcTtelf4DFBX_vR6GQsrmVxe7eIkthFid_XXIq4tDC3Ii4b9yrBAQukW4K071sjNtbTiXPA9YZi_DMnfYYJWjEo2DkLJaFoIBS1h9EhatbzuwScBM6nUC1671s1ExoMwK_pqlMcfdrig0kS2Syxs_dmVpWaYOg10HOwtoxcV0bNy5CoDwbJDPg7_81BAD5pkUHEYNgFo'); background-size: cover; background-position: center;"></div>
+                    <div class="card-body d-flex flex-column gap-2">
+                        <div>
+                            <h5 class="card-title fs-6 fw-bold mb-1">Bơ</h5>
+                            <p class="card-text text-brand small">80.000đ / kg</p>
+                        </div>
+                        <button class="btn bg-brand-soft text-brand fw-bold w-100 mt-auto btn-sm py-2">Thêm vào giỏ</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="mt-5 py-4">
+            <div class="mb-4">
+                <h2 class="h3 fw-bold mb-2">Tại Sao Chọn Chúng Tôi?</h2>
+                <p class="text-secondary">Chúng tôi cam kết mang đến cho bạn những sản phẩm tươi ngon nhất với dịch vụ tận tâm.</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="border border-success-subtle rounded-4 p-4 h-100 bg-white">
+                        <div class="text-brand mb-3">
+                            <span class="material-symbols-outlined fs-2">psychiatry</span>
+                        </div>
+                        <h5 class="fw-bold">Tươi ngon mỗi ngày</h5>
+                        <p class="text-secondary small mb-0">Trái cây được thu hoạch và lựa chọn cẩn thận trong ngày.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="border border-success-subtle rounded-4 p-4 h-100 bg-white">
+                        <div class="text-brand mb-3">
+                            <span class="material-symbols-outlined fs-2">local_shipping</span>
+                        </div>
+                        <h5 class="fw-bold">Giao hàng nhanh</h5>
+                        <p class="text-secondary small mb-0">Giao hàng nhanh chóng trong nội thành để đảm bảo độ tươi ngon.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="border border-success-subtle rounded-4 p-4 h-100 bg-white">
+                        <div class="text-brand mb-3">
+                            <span class="material-symbols-outlined fs-2">verified</span>
+                        </div>
+                        <h5 class="fw-bold">Nguồn gốc rõ ràng</h5>
+                        <p class="text-secondary small mb-0">Sản phẩm có nguồn gốc xuất xứ rõ ràng, an toàn cho sức khỏe.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-5 mb-5">
+            <h2 class="h4 fw-bold mb-4">Khám phá theo danh mục</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="hover-zoom-container">
+                        <div class="hover-zoom-img w-100 h-100" style="background: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC1oJTygTv0lvaZgtrEO_-bzzLvONXEQL_wBHmteNWlrDwowTtjO4aptOlqQ5-aX_FIYvWtQxbdA-SXr-KSB6Is4gl7OM3nlqaxLFybgI3pfshUJjlCU5oGcAkS9Vj5iROglgVvwxGqf6fKmaqcXYvjlounYc3VDCi73uzHMVl3c2Sur8HI8sdeYGfBpKm0B0rWbZx6vqwb_56oQSnTwNtxGEgmcpQkG9ViL8y34Z6n5KEldk_bZJLA_umxqIate8zlUe8SiCDtiHyv') center/cover;"></div>
+                        <div class="position-absolute top-0 start-0 w-100 h-100 bg-black bg-opacity-50 d-flex align-items-center justify-content-center">
+                            <h3 class="text-white fw-bold">Trái Cây Nhập Khẩu</h3>
+                        </div>
+                        <a href="#" class="stretched-link" aria-label="Xem trái cây nhập khẩu"></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="hover-zoom-container">
+                        <div class="hover-zoom-img w-100 h-100" style="background: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDAL7ANqH0S8V5kvsSlCsaDkQuhWkShnoBilunyGfiYaKpfnI053lbMIZ4t_sSaXXHjaMQYn28Rp8oBxTrPrfvfF5VspdW3Y6TtF1j5VW3KnQLtw8dAnHx917AqR0nhUyiZF_-3Nb9wptOpwwITSezbLeBS3pONQslCDyWaqU-kvDuIhHOYLM7LtJnjOofVqqGNezBw0dk2o699l8v6tcSpc8jj_wpSZ_z-WproGzSC2gjc94VYe6PyfgDfUIwZLgFefC5SayL9Ipro') center/cover;"></div>
+                        <div class="position-absolute top-0 start-0 w-100 h-100 bg-black bg-opacity-50 d-flex align-items-center justify-content-center">
+                            <h3 class="text-white fw-bold">Trái Cây Nội Địa</h3>
+                        </div>
+                        <a href="#" class="stretched-link" aria-label="Xem trái cây nội địa"></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="hover-zoom-container">
+                        <div class="hover-zoom-img w-100 h-100" style="background: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAfyjZH12x-49wqqaueOAs5n5hojgzFXjiROVApgfuKUt_AD8qO1ZRGhk2xrWQ95ZabNmuz9nlsPhy86huQnJuTE_0-N7pnk2kBhReJoYsOmCwJbrTQNkv9-i9MG5amy_bwnToqNRyOrTecEigJIgZxeQjVgpHty_zo6mzE6ikYXMm41_Py5Bw64BGMF0P3-XkiZpb9TEKfTNK1DtsttMUQKotW8fyqCfRMSV7p3pyDDl_9qLxmqW063_QYpuDC_dEUsPHncUtFmVCv') center/cover;"></div>
+                        <div class="position-absolute top-0 start-0 w-100 h-100 bg-black bg-opacity-50 d-flex align-items-center justify-content-center">
+                            <h3 class="text-white fw-bold">Giỏ Quà Tặng</h3>
+                        </div>
+                        <a href="#" class="stretched-link" aria-label="Xem giỏ quà tặng"></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-top border-success-subtle bg-white pt-5 pb-4 mt-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="d-flex align-items-center gap-2 text-brand mb-3">
+                        <span class="material-symbols-outlined fs-3">eco</span>
+                        <h4 class="h5 fw-bold mb-0">Cửa hàng Hoa quả</h4>
+                    </div>
+                    <p class="text-secondary small">Mang thiên nhiên tươi mát đến ngôi nhà của bạn.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="fw-bold mb-3 fs-6">Sản phẩm</h5>
+                    <ul class="list-unstyled d-flex flex-column gap-2 text-secondary small">
+                        <li><a href="#" class="text-decoration-none text-secondary hover-text-brand">Trái cây nhập khẩu</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary hover-text-brand">Trái cây nội địa</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary hover-text-brand">Giỏ quà tặng</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary hover-text-brand">Ưu đãi</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="fw-bold mb-3 fs-6">Chính sách</h5>
+                    <ul class="list-unstyled d-flex flex-column gap-2 text-secondary small">
+                        <li><a href="#" class="text-decoration-none text-secondary hover-text-brand">Chính sách giao hàng</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary hover-text-brand">Chính sách đổi trả</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary hover-text-brand">Điều khoản dịch vụ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="fw-bold mb-3 fs-6">Liên hệ</h5>
+                    <div class="text-secondary small">
+                        <p class="mb-1">123 Đường ABC, Quận 1, TP. HCM</p>
+                        <p class="mb-1">Email: contact@hoaqua.vn</p>
+                        <p>Phone: 0123 456 789</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5 pt-3 border-top border-success-subtle text-secondary small">
+                <p class="mb-0">© 2024 Cửa hàng Hoa quả. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

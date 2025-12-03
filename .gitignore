@@ -1,0 +1,5 @@
+/vendor
+.env
+config/database.php
+config/google_config.php
+cacert.pem
