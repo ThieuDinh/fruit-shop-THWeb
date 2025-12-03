@@ -7,7 +7,7 @@ if (isset($_SESSION['user_id'])) {
     header('Location: index.php');
     exit();
 }
-require_once 'config/google_config.php'; // Gọi file cấu hình
+require_once 'config/google_config.php'; // Gọi file cấu hình aa
 $login_url = $client->createAuthUrl();
 // Gọi file kết nối database
 require_once 'config/database.php';

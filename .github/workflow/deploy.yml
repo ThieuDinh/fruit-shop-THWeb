@@ -1,0 +1,39 @@
+name: Deploy to InfinityFree
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Lấy code từ GitHub xuống máy ảo
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      # 2. Cài đặt PHP cho máy ảo để chạy Composer
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      # 3. Chạy Composer Install để tạo thư mục /vendor (Vì mình không push folder này lên)
+      - name: Install Dependencies
+        run: composer install --no-dev --optimize-autoloader
+
+      # 4. Đẩy toàn bộ code (bao gồm cả vendor vừa tạo) sang InfinityFree qua FTP
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ftpupload.net          # Host FTP của InfinityFree
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /htdocs/           # Thư mục gốc trên Host
+          exclude: |                     # Không đẩy những file rác này lên Host
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            .env
+            README.md
