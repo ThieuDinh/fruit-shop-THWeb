@@ -54,6 +54,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Lưu Token vào Cookie trình duyệt (Sống 30 ngày)
                 // Cú pháp: setcookie(tên, giá trị, thời gian sống, đường dẫn, tên miền, bảo mật, chỉ http)
                 setcookie('remember_token', $token, time() + (86400 * 30), "/", "", false, true);
+            } else {
+                // B. Nếu KHÔNG tích Ghi nhớ -> PHẢI XÓA COOKIE CŨ ĐI (Để tránh dính nick cũ)
+                if (isset($_COOKIE['remember_token'])) {
+                    setcookie('remember_token', '', time() - 3600, "/", "", false, true);
+
+                    // Xóa luôn token trong DB của user cũ (nếu muốn bảo mật tuyệt đối)
+                    // Nhưng vì ta chưa biết user cũ là ai nên chỉ cần xóa Cookie trình duyệt là đủ.
+                }
             }
             // Chuyển hướng dựa trên quyền hạn
             if ($user['role'] == 1) {
