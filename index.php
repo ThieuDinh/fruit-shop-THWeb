@@ -97,15 +97,14 @@ require_once 'includes/header.php';
 
                     <div class="row g-4 mt-2 mb-5">
                         <?php foreach ($cat_products as $pro): ?>
-                            <div class="col-md-6 col-lg-4 col-xl-3">
-                                <div class="rounded fruite-item border border-secondary h-100">
+                            <div class="col-md-6 col-lg-6 col-xl-3">
+                                <div class="rounded position-relative fruite-item h-100 border border-secondary">
                                     <div class="fruite-img">
                                         <img src="<?php echo htmlspecialchars($pro['image']); ?>" class="img-fluid w-100 rounded-top" alt="">
                                     </div>
 
-                                    <div class="p-4 border-top-0 rounded-bottom d-flex flex-column h-100">
+                                    <div class="p-4 border-top-0 rounded-bottom d-flex flex-column">
                                         <h4><?php echo htmlspecialchars($pro['name']); ?></h4>
-
                                         <p><?php echo substr(htmlspecialchars($pro['description']), 0, 50) . '...'; ?></p>
 
                                         <div class="d-flex justify-content-between flex-lg-wrap mt-auto">

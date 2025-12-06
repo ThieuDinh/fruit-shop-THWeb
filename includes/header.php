@@ -33,8 +33,7 @@ if (isset($_SESSION['cart'])) {
 }
 ?>
 <!DOCTYPE html>
-<!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="utf-8">
