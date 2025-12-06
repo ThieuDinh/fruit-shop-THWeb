@@ -76,4 +76,17 @@ function get_Cart_Products($conn, $cart_ids) {
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+// Hàm lấy chi tiết 1 sản phẩm theo ID
+function get_Product_By_Id($conn, $id) {
+    // Join với bảng categories để lấy luôn tên danh mục nếu cần
+    $sql = "SELECT p.*, c.name as category_name 
+            FROM products p 
+            LEFT JOIN categories c ON p.category_id = c.id
+            WHERE p.id = :id AND p.is_active = 1";
+            
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([':id' => $id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC); // Lấy 1 dòng
+}
 ?>

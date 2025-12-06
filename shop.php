@@ -102,12 +102,16 @@ require_once 'includes/header.php';
                                     <div class="col-md-6 col-lg-6 col-xl-4">
                                         <div class="rounded position-relative fruite-item h-100 border border-secondary">
                                             <div class="fruite-img">
+                                                <a href="product_detail.php?id=<?php echo $pro['id']; ?>">
                                                 <img src="<?php echo htmlspecialchars($pro['image']); ?>" class="img-fluid w-100 rounded-top" alt="">
+                                                </a>
                                             </div>
 
                                             <div class="p-4 border-top-0 rounded-bottom d-flex flex-column">
+                                                <a href="product_detail.php?id=<?php echo $pro['id']; ?>" class="text-dark">
                                                 <h4><?php echo htmlspecialchars($pro['name']); ?></h4>
-                                                <p><?php echo substr(htmlspecialchars($pro['description']), 0, 50) . '...'; ?></p>
+                                                </a>
+                                                <p><?php echo htmlspecialchars(mb_substr($pro['description'], 0, 50, 'UTF-8')) . '...'; ?></p>
 
                                                 <div class="d-flex justify-content-between flex-lg-wrap mt-auto">
                                                     <p class="text-dark fs-5 fw-bold mb-0"><?php echo number_format($pro['price']); ?> đ</p>
