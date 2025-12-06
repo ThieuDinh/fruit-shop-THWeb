@@ -118,7 +118,7 @@ if (!empty($cart_items)) {
                             <h5 class="mb-0 ps-4 me-4">Tổng</h5>
                             <p class="mb-0 pe-4"><?php echo number_format($total_price + 30000, 0, ',', '.'); ?> đ</p>
                         </div>
-                        <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">Thanh toán</button>
+                        <a href="checkout.php" class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4">Thanh toán</a>
                     </div>
                 </div>
             </div>

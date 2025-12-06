@@ -306,7 +306,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <button class="btn active" id="btn-login-toggle">Đăng nhập</button>
                         <button class="btn" id="btn-register-toggle">Đăng ký</button>
                     </div>
-
+                    <?php if (!empty($error)): ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i> <?php echo $error; ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php endif; ?>
                     <form action="" method="post">
                         <div class="mb-3">
                             <label for="email" class="form-label fw-bold text-secondary small">Email</label>
@@ -317,11 +322,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <label for="password" class="form-label fw-bold text-secondary small">Mật khẩu</label>
                             <div class="input-group">
                                 <input type="password" name="password" class="form-control" id="password" placeholder="Nhập mật khẩu" required>
-                                <?php if (!empty($error)): ?>
-                                    <div class="alert alert-danger">
-                                        <?php echo $error; ?>
-                                    </div>
-                                <?php endif; ?>
+                                
                                 <button class="btn btn-outline-secondary " type="button" id="togglePassword" style=" border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
                                     <i class="fas fa-eye"></i>
                                 </button>

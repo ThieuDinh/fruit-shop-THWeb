@@ -73,43 +73,55 @@ require_once 'includes/header.php';
 <!-- Fruits Shop Start-->
 <div class="container-fluid fruite py-5">
     <div class="container py-5">
-        <div class="tab-class text-center">
+        <div class="text-center">
             <div class="row g-4">
                 <div class="col-lg-4 text-start">
                     <h1>Sản phẩm nổi bật</h1>
                 </div>
-                
             </div>
-            <div class="tab-content">
-                <div id="tab-1" class="tab-pane fade show p-0 active">
-                    <div class="row g-4">
-                        <div class="col-lg-12">
-                            <div class="row g-4">
-                                <?php foreach ($products as $pro): ?>
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <div class="rounded fruite-item border border-secondary">
-                                            <div class="fruite-img">
-                                                <img src="<?php echo htmlspecialchars($pro['image']); ?>" class="img-fluid w-100" alt="">
-                                            </div>
 
-                                            <div class="p-4 border-top-0 rounded-bottom">
-                                                <h4><?php echo htmlspecialchars($pro['name']); ?></h4>
-                                                <p class="mb-4"><?php echo htmlspecialchars($pro['description']); ?></p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap mt-auto">
-                                                    <p class="text-dark fs-5 fw-bold mb-0"><?php echo htmlspecialchars($pro['price']); ?> / kg</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary">
-                                                        <i class="fa fa-shopping-bag me-2 text-primary"></i>Thêm
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
+            <?php foreach ($categories as $cat): ?>
+                <?php
+                // Gọi hàm lấy sản phẩm: Truyền ID danh mục, Trang 1, Giới hạn 4
+                $cat_products = get_Products_Dynamic($conn, $cat['id'], 1, 4);
+                ?>
+
+                <?php if (!empty($cat_products)): ?>
+
+                    <div class="row g-4 mt-3">
+                        <div class="col-lg-12 d-flex justify-content-between align-items-center">
+                            <h3 class="text-secondary text-start mb-0"><?php echo htmlspecialchars($cat['name']); ?></h3>
+                            <a href="shop.php?category_id=<?php echo $cat['id']; ?>" class="btn btn-outline-primary btn-sm rounded-pill">Xem tất cả</a>
                         </div>
                     </div>
-                </div>
-            </div>
+
+                    <div class="row g-4 mt-2 mb-5">
+                        <?php foreach ($cat_products as $pro): ?>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="rounded fruite-item border border-secondary h-100">
+                                    <div class="fruite-img">
+                                        <img src="<?php echo htmlspecialchars($pro['image']); ?>" class="img-fluid w-100 rounded-top" alt="">
+                                    </div>
+
+                                    <div class="p-4 border-top-0 rounded-bottom d-flex flex-column h-100">
+                                        <h4><?php echo htmlspecialchars($pro['name']); ?></h4>
+
+                                        <p><?php echo substr(htmlspecialchars($pro['description']), 0, 50) . '...'; ?></p>
+
+                                        <div class="d-flex justify-content-between flex-lg-wrap mt-auto">
+                                            <p class="text-dark fs-5 fw-bold mb-0"><?php echo number_format($pro['price']); ?> đ</p>
+                                            <a href="cart_action.php?add=<?php echo $pro['id']; ?>" class="btn border border-secondary rounded-pill px-3 text-primary">
+                                                <i class="fa fa-shopping-bag me-2 text-primary"></i> Thêm
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+
+                <?php endif; ?>
+            <?php endforeach; ?>
         </div>
     </div>
 </div>

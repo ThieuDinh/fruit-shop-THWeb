@@ -84,9 +84,9 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="mt-3">
                 <a href="index.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-                <a href="categories.php" class="active"><i class="fas fa-list"></i> Quản lý Danh mục</a>
-                <a href="products.php"><i class="fas fa-box-open"></i> Quản lý Sản phẩm</a>
-                <a href="orders.php"><i class="fas fa-shopping-cart"></i> Quản lý Đơn hàng</a>
+                <a href="category.php" class="active"><i class="fas fa-list"></i> Quản lý Danh mục</a>
+                <a href="product.php"><i class="fas fa-box-open"></i> Quản lý Sản phẩm</a>
+                <a href="order.php"><i class="fas fa-shopping-cart"></i> Quản lý Đơn hàng</a>
                 <a href="users.php"><i class="fas fa-users-cog"></i> Tài khoản Nhân viên</a>
                 <a href="../index.php" target="_blank"><i class="fas fa-home"></i> Xem Trang chủ</a>
             </div>

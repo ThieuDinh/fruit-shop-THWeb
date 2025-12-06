@@ -128,7 +128,7 @@ try {
                 <div class="collapse d-md-none mb-3" id="mobileMenu">
                     <div class="card card-body bg-dark">
                         <a href="index.php" class="text-white mb-2">Dashboard</a>
-                        <a href="products.php" class="text-white mb-2">Sản phẩm</a>
+                        <a href="product.php" class="text-white mb-2">Sản phẩm</a>
                         <a href="orders.php" class="text-white mb-2">Đơn hàng</a>
                         <a href="../logout.php" class="text-danger">Đăng xuất</a>
                     </div>
