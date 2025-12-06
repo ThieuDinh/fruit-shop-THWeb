@@ -239,7 +239,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             padding: 0 10px;
         }
 
-        /* Social Buttons */
+      
         .btn-social {
             display: flex;
             align-items: center;
