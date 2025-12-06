@@ -275,7 +275,7 @@
 
 /*** service End ***/
 
-/.fruite .tab-class .nav-item a.active {
+.fruite .tab-class .nav-item a.active {
     background: var(--bs-secondary) !important;
 }
 
@@ -337,7 +337,6 @@
     flex-direction: column;
     justify-content: space-between; /* Đẩy tên lên trên, giá xuống dưới */
 }
-/*** Fruits End ***/
 
 /*** vesitable Start ***/
 .vesitable .vesitable-item {
