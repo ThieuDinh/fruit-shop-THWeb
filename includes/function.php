@@ -89,4 +89,7 @@ function get_Product_By_Id($conn, $id) {
     $stmt->execute([':id' => $id]);
     return $stmt->fetch(PDO::FETCH_ASSOC); // Lấy 1 dòng
 }
+
+
+
 ?>

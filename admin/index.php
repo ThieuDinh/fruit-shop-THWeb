@@ -12,29 +12,39 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 1) {
 // 2. LẤY SỐ LIỆU THỐNG KÊ (DASHBOARD)
 // Lưu ý: Bạn cần tạo các bảng products, orders, categories trong DB thì đoạn này mới chạy được.
 // Tôi sẽ dùng try-catch để nếu chưa có bảng thì nó không báo lỗi, chỉ hiện số 0.
-
-$count_products = 0;
+function get_New_Orders($conn)
+{
+    // Lấy 5 đơn hàng mới nhất
+    $sql = "SELECT o.*, u.full_name 
+            FROM orders o 
+            LEFT JOIN users u ON o.user_id = u.id 
+            ORDER BY o.created_at DESC 
+            LIMIT 5";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+$count_products = 1;
 $count_orders = 0;
 $count_users = 0;
 $count_categories = 0;
-
+$order = get_New_Orders($conn);
 try {
     // Đếm sản phẩm
-    // $stmt = $conn->query("SELECT COUNT(*) FROM products");
-    // $count_products = $stmt->fetchColumn(); 
+    $stmt = $conn->query("SELECT COUNT(*) FROM products");
+    $count_products = $stmt->fetchColumn();
 
     // Đếm đơn hàng
-    // $stmt = $conn->query("SELECT COUNT(*) FROM orders");
-    // $count_orders = $stmt->fetchColumn();
+    $stmt = $conn->query("SELECT COUNT(*) FROM orders");
+    $count_orders = $stmt->fetchColumn();
 
     // Đếm nhân viên/user (role = 1 là admin/nhân viên)
     $stmt = $conn->query("SELECT COUNT(*) FROM users WHERE role = 1");
     $count_users = $stmt->fetchColumn();
 
     // Đếm danh mục
-    // $stmt = $conn->query("SELECT COUNT(*) FROM categories");
-    // $count_categories = $stmt->fetchColumn();
-
+    $stmt = $conn->query("SELECT COUNT(*) FROM categories");
+    $count_categories = $stmt->fetchColumn();
 } catch (Exception $e) {
     // Bỏ qua lỗi nếu chưa tạo bảng
 }
@@ -48,19 +58,21 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Farm2Home</title>
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         body {
             background-color: #f8f9fa;
         }
+
         .sidebar {
             min-height: 100vh;
             background-color: #343a40;
             color: white;
         }
+
         .sidebar a {
             color: #adb5bd;
             text-decoration: none;
@@ -69,25 +81,33 @@ try {
             border-bottom: 1px solid #495057;
             transition: 0.3s;
         }
-        .sidebar a:hover, .sidebar a.active {
-            background-color: #0d6efd; /* Màu xanh primary */
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: #0d6efd;
+            /* Màu xanh primary */
             color: white;
-            padding-left: 25px; /* Hiệu ứng đẩy nhẹ sang phải */
+            padding-left: 25px;
+            /* Hiệu ứng đẩy nhẹ sang phải */
         }
+
         .sidebar i {
             margin-right: 10px;
             width: 20px;
             text-align: center;
         }
+
         .stat-card {
             border-radius: 10px;
             border: none;
             transition: transform 0.2s;
         }
+
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
         }
+
         .icon-box {
             font-size: 2.5rem;
             opacity: 0.3;
@@ -99,13 +119,13 @@ try {
 
     <div class="container-fluid">
         <div class="row">
-            
+
             <div class="col-md-3 col-lg-2 px-0 sidebar d-none d-md-block">
                 <div class="py-4 text-center border-bottom border-secondary">
                     <h4 class="fw-bold text-white">Admin Panel</h4>
                     <small>Xin chào, <?php echo htmlspecialchars($_SESSION['user_name']); ?></small>
                 </div>
-                
+
                 <div class="mt-3">
                     <a href="index.php" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
                     <a href="category.php"><i class="fas fa-list"></i> Quản lý Danh mục</a>
@@ -118,7 +138,7 @@ try {
             </div>
 
             <div class="col-md-9 col-lg-10 ms-sm-auto px-md-4 py-4">
-                
+
                 <div class="d-flex justify-content-between align-items-center d-md-none mb-4">
                     <h4 class="fw-bold">Dashboard</h4>
                     <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#mobileMenu">
@@ -137,7 +157,7 @@ try {
                 <h2 class="fw-bold mb-4">Tổng quan hệ thống</h2>
 
                 <div class="row g-4 mb-5">
-                    
+
                     <div class="col-md-3">
                         <div class="card stat-card bg-primary text-white h-100">
                             <div class="card-body d-flex justify-content-between align-items-center">
@@ -150,7 +170,7 @@ try {
                                 </div>
                             </div>
                             <div class="card-footer bg-transparent border-0 small">
-                                <a href="products.php" class="text-white text-decoration-none">Xem chi tiết <i class="fas fa-arrow-right ms-1"></i></a>
+                                <a href="product.php" class="text-white text-decoration-none">Xem chi tiết <i class="fas fa-arrow-right ms-1"></i></a>
                             </div>
                         </div>
                     </div>
@@ -167,7 +187,7 @@ try {
                                 </div>
                             </div>
                             <div class="card-footer bg-transparent border-0 small">
-                                <a href="orders.php" class="text-white text-decoration-none">Xử lý ngay <i class="fas fa-arrow-right ms-1"></i></a>
+                                <a href="order.php" class="text-white text-decoration-none">Xử lý ngay <i class="fas fa-arrow-right ms-1"></i></a>
                             </div>
                         </div>
                     </div>
@@ -184,7 +204,7 @@ try {
                                 </div>
                             </div>
                             <div class="card-footer bg-transparent border-0 small">
-                                <a href="categories.php" class="text-dark text-decoration-none">Quản lý <i class="fas fa-arrow-right ms-1"></i></a>
+                                <a href="category.php" class="text-dark text-decoration-none">Quản lý <i class="fas fa-arrow-right ms-1"></i></a>
                             </div>
                         </div>
                     </div>
@@ -221,27 +241,27 @@ try {
                                         <th>Tổng tiền</th>
                                         <th>Trạng thái</th>
                                         <th>Ngày đặt</th>
-                                        <th>Hành động</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="ps-4 fw-bold">#ORD-001</td>
-                                        <td>Nguyễn Văn A</td>
-                                        <td>500.000đ</td>
-                                        <td><span class="badge bg-warning text-dark">Chờ duyệt</span></td>
-                                        <td>05/12/2025</td>
-                                        <td><a href="#" class="btn btn-sm btn-outline-primary">Chi tiết</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="ps-4 fw-bold">#ORD-002</td>
-                                        <td>Trần Thị B</td>
-                                        <td>1.200.000đ</td>
-                                        <td><span class="badge bg-success">Đã giao</span></td>
-                                        <td>04/12/2025</td>
-                                        <td><a href="#" class="btn btn-sm btn-outline-primary">Chi tiết</a></td>
-                                    </tr>
-                                    </tbody>
+                                    <?php if (!empty($order)): ?>
+                                        <?php foreach ($order as $ord): ?>
+                                            <tr>
+                                                <td class="ps-4 fw-bold"><?php echo $ord['id']; ?></td>
+                                                <td><?php echo $ord['full_name']; ?></td>
+                                                <td><?php echo $ord['total_money']; ?></td>
+                                                <td><span class="badge bg-warning text-dark"><?php echo $ord['status']; ?></span></td>
+                                                <td><?php echo $ord['created_at']; ?></td>
+
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="6" class="text-center py-4">Chưa có đơn hàng nào mới.</td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -253,4 +273,5 @@ try {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
