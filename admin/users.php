@@ -133,7 +133,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <tbody>
                                 <?php foreach ($users as $u): ?>
                                 <tr>
-                                    <td class="ps-3 fw-bold text-muted">#<?php echo $u['id']; ?></td>
+                                    <td class="ps-3 fw-bold text-muted"><?php echo $u['id']; ?></td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="bg-light rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 35px; height: 35px;">
