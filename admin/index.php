@@ -2,16 +2,12 @@
 session_start();
 require_once '../config/database.php';
 
-// 1. KIỂM TRA QUYỀN ADMIN
-// Nếu chưa đăng nhập hoặc role không phải là 1 (Admin) -> Đẩy về trang login
+
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 1) {
     header("Location: ../login.php");
     exit;
 }
 
-// 2. LẤY SỐ LIỆU THỐNG KÊ (DASHBOARD)
-// Lưu ý: Bạn cần tạo các bảng products, orders, categories trong DB thì đoạn này mới chạy được.
-// Tôi sẽ dùng try-catch để nếu chưa có bảng thì nó không báo lỗi, chỉ hiện số 0.
 function get_New_Orders($conn)
 {
     // Lấy 5 đơn hàng mới nhất

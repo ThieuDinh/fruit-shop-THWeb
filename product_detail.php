@@ -1,7 +1,7 @@
 <?php
 require_once 'includes/function.php';
 
-// 1. Lấy ID từ URL (VD: product_detail.php?id=5)
+// 1. Lấy ID từ URL
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 // 2. Gọi hàm lấy dữ liệu

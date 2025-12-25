@@ -1,74 +1,54 @@
 <?php
-// 1. Khởi động session (Bắt buộc phải có ở dòng đầu tiên)
 session_start();
 
-// Nếu đã đăng nhập rồi thì đá về trang chủ, không cho vào trang login nữa
+// đã login
 if (isset($_SESSION['user_id'])) {
     header('Location: index.php');
     exit();
 }
-require_once 'config/google_config.php'; // Gọi file cấu hình aa
+require_once 'config/google_config.php'; 
 $login_url = $client->createAuthUrl();
-// Gọi file kết nối database
+
 require_once 'config/database.php';
 
-$error = ''; // Biến lưu thông báo lỗi
+$error = '';
 
-// 2. Kiểm tra xem người dùng có bấm nút "Đăng nhập" không
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    // Lấy dữ liệu và làm sạch
     $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    // Validate cơ bản
     if (empty($email) || empty($password)) {
         $error = 'Vui lòng nhập đầy đủ email và mật khẩu!';
     } else {
-        // 3. Truy vấn tìm user theo email
         $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
 
         $user = $stmt->fetch();
 
-        // 4. Kiểm tra mật khẩu
-        // $user: User tìm thấy trong DB
-        // password_verify: So sánh pass nhập vào (123456) với pass đã mã hóa trong DB
+        // so sánh pass nhập vào với pass đã mã hóa 
         if ($user && password_verify($password, $user['password'])) {
-
-            // --- ĐĂNG NHẬP THÀNH CÔNG ---
-
-            // Lưu thông tin cần thiết vào Session
+            // lưu thông tin cần thiết vào ss
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_name'] = $user['full_name'];
-            $_SESSION['user_role'] = $user['role']; // 0: User, 1: Admin
+            $_SESSION['user_role'] = $user['role']; 
             if (isset($_POST['remember']) && $_POST['remember'] == '1') {
-                // Tạo một chuỗi ngẫu nhiên (Token)
-                $token = bin2hex(random_bytes(16)); // Ví dụ: a1b2c3d4...
-
-                // Lưu Token vào Database
+                // Tạo token
+                $token = bin2hex(random_bytes(16));
                 $stmt = $conn->prepare("UPDATE users SET remember_token = :token WHERE id = :id");
                 $stmt->execute([':token' => $token, ':id' => $user['id']]);
-
-                // Lưu Token vào Cookie trình duyệt (Sống 30 ngày)
-                // Cú pháp: setcookie(tên, giá trị, thời gian sống, đường dẫn, tên miền, bảo mật, chỉ http)
-                setcookie('remember_token', $token, time() + (86400 * 30), "/", "", false, true);
+                // lưu token 7 ngày
+                setcookie('remember_token', $token, time() + (86400 * 7), "/", "", false, true);
             } else {
-                // B. Nếu KHÔNG tích Ghi nhớ -> PHẢI XÓA COOKIE CŨ ĐI (Để tránh dính nick cũ)
+                //xóa cookie cũ
                 if (isset($_COOKIE['remember_token'])) {
                     setcookie('remember_token', '', time() - 3600, "/", "", false, true);
-
-                    // Xóa luôn token trong DB của user cũ (nếu muốn bảo mật tuyệt đối)
-                    // Nhưng vì ta chưa biết user cũ là ai nên chỉ cần xóa Cookie trình duyệt là đủ.
                 }
             }
-            // Chuyển hướng dựa trên quyền hạn
+           
             if ($user['role'] == 1) {
-                // Nếu là Admin -> Vào trang quản trị
-                header('Location: index.php');
+                header('Location: admin/index.php');
             } else {
-                // Nếu là Khách -> Về trang chủ
                 header('Location: index.php');
             }
             exit();

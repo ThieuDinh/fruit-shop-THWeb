@@ -1,8 +1,6 @@
 <?php
 session_start();
 require_once '../config/database.php';
-
-// 1. CHECK ADMIN
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 1) {
     header("Location: ../login.php");
     exit;
@@ -10,7 +8,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 1) {
 
 $message = "";
 
-// 2. XỬ LÝ FORM (THÊM - SỬA - XÓA)
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     // A. XỬ LÝ THÊM MỚI
@@ -26,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // B. XỬ LÝ CẬP NHẬT
+    // XỬ LÝ CẬP NHẬT
     if (isset($_POST['update_category'])) {
         $id = $_POST['cat_id'];
         $name = trim($_POST['name']);
@@ -39,20 +36,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// C. XỬ LÝ XÓA (GET REQUEST)
+// C. XỬ LÝ XÓA 
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
-    // Kiểm tra xem có sản phẩm nào đang dùng danh mục này không (Optional - Để an toàn)
-    // $check = $conn->query("SELECT COUNT(*) FROM products WHERE category_id = $id")->fetchColumn();
-    // if ($check > 0) { $message = "Không thể xóa danh mục đang chứa sản phẩm!"; } else { ... }
-    
+
     $stmt = $conn->prepare("DELETE FROM categories WHERE id = :id");
     $stmt->execute([':id' => $id]);
-    header("Location: category.php"); // Refresh để mất tham số ?delete=...
+    header("Location: category.php"); 
     exit;
 }
 
-// 3. LẤY DANH SÁCH DANH MỤC
 $stmt = $conn->query("SELECT * FROM categories ORDER BY id DESC");
 $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>

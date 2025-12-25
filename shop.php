@@ -2,26 +2,22 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-// ==========================================
+
 require_once 'includes/function.php';
-// ... code cũ của bạn ở dưới ...
+
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-// Mặc định là null nếu không có ?category_id=...
 $category_id = isset($_GET['category_id']) && $_GET['category_id'] != '' ? (int)$_GET['category_id'] : null;
 
-// 2. CẤU HÌNH PHÂN TRANG
-$limit = 9; // Số sản phẩm trên 1 trang
+//phân trang
+$limit = 9; 
 
-// 3. GỌI HÀM LẤY DỮ LIỆU
 $products = get_Products_Dynamic($conn, $category_id, $page, $limit);
 $total_products = count_Total_Products($conn, $category_id);
 $total_pages = ceil($total_products / $limit);
 
 $count_categories = get_All_category($conn);
-// 1. Cấu hình tiêu đề trang
 $pageTitle = "Shop - Cửa hàng Hoa quả";
 
-// 2. Nhúng Header
 require_once 'includes/header.php';
 ?>
 <!-- Modal Search Start -->

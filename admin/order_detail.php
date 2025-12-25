@@ -2,7 +2,6 @@
 session_start();
 require_once '../config/database.php';
 
-// 1. CHECK ADMIN
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 1) {
     header("Location: ../login.php");
     exit;

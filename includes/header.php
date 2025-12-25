@@ -81,9 +81,9 @@ if (isset($_SESSION['cart'])) {
                     <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">spfarm2home@gmail.com</a></small>
                 </div>
                 <div class="top-link pe-2">
-                    <a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a>
-                    <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a>
-                    <a href="#" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a>
+                    <a href="coming_soon.php" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a>
+                    <a href="coming_soon.php" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a>
+                    <a href="coming_soon.php" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a>
                 </div>
             </div>
         </div>
@@ -100,17 +100,15 @@ if (isset($_SESSION['cart'])) {
                         <a href="index.php" class="nav-item nav-link active">Trang chủ</a>
                         <a href="shop.php" class="nav-item nav-link">Cửa hàng</a>
                         <a href="checkout.php" class="nav-item nav-link">Thanh toán</a>
-                        <a href="contact.php" class="nav-item nav-link">Liên hệ</a>
+                       
                     </div>
                     <div class="d-flex m-3 me-0">
-                        <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
+                        
                         <a href="cart.php" class="position-relative me-4 my-auto">
                             <i class="fa fa-shopping-bag fa-2x"></i>
                             <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;"><?php echo $cart_count; ?></span>
                         </a>
-                        <!-- <a href="#" class="my-auto">
-                                <i class="fas fa-user fa-2x"></i>
-                            </a> -->
+                     
                         <div class="dropdown">
                             <?php if (isset($_SESSION['user_id'])): ?>
                                 <button class="btn btn-light dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown">

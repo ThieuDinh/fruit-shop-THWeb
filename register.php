@@ -1,18 +1,17 @@
 <?php
 session_start();
 require_once 'config/database.php';
-require_once 'config/google_config.php'; // Gọi file cấu hình
+require_once 'config/google_config.php';
 $login_url = $client->createAuthUrl();
 $error = '';
 $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Chỉ lấy Email và Mật khẩu
+    
     $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
     $confirm_password = $_POST['confirm_password'] ?? '';
 
-    // 1. Validate dữ liệu (Bỏ check full_name)
     if (empty($email) || empty($password) || empty($confirm_password)) {
         $error = 'Vui lòng điền đầy đủ email và mật khẩu!';
     } elseif ($password !== $confirm_password) {
@@ -20,7 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (strlen($password) < 6) {
         $error = 'Mật khẩu phải có ít nhất 6 ký tự!';
     } else {
-        // 2. Kiểm tra email đã tồn tại chưa
         $stmt = $conn->prepare("SELECT id FROM users WHERE email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
@@ -28,15 +26,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmt->rowCount() > 0) {
             $error = 'Email này đã được đăng ký!';
         } else {
-            // 3. Xử lý logic tạo tên tạm thời
-            // Lấy phần trước @ của email làm tên. VD: "admin@gmail.com" -> Tên là "admin"
             $email_parts = explode('@', $email);
             $temp_name = $email_parts[0]; 
 
             // Mã hóa mật khẩu
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             
-            // Insert vào DB (Cột full_name sẽ lưu $temp_name)
+            // lưu db
             $sql = "INSERT INTO users (full_name, email, password, role) VALUES (:full_name, :email, :password, 0)";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':full_name', $temp_name);

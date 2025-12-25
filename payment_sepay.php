@@ -19,14 +19,14 @@ if (!$order) {
     exit;
 }
 
-// --- CẤU HÌNH NGÂN HÀNG CỦA BẠN ---
-$my_bank = "MBBank"; // Ví dụ: MBBank, VCB, ACB...
-$my_account = "26020456789"; // Số tài khoản của bạn
-$my_name = "VO DINH THIEU"; // Tên chủ tài khoản
+//CẤU HÌNH NGÂN HÀNG
+$my_bank = "MBBank"; 
+$my_account = "26020456789"; 
+$my_name = "VO DINH THIEU"; 
 $amount = $order['total_money'];
-$content = "DH" . $order_id; // Nội dung chuyển khoản: DH + Mã đơn (Ví dụ: DH15)
+$content = "DH" . $order_id; 
 
-// Tạo link QR SePay (API công khai của SePay)
+// api Sepay
 $qr_url = "https://qr.sepay.vn/img?bank={$my_bank}&acc={$my_account}&template=compact&amount={$amount}&des={$content}";
 ?>
 

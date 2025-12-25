@@ -2,7 +2,6 @@
 session_start();
 require_once '../config/database.php';
 
-// 1. CHECK ADMIN
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 1) {
     header("Location: ../login.php");
     exit;
@@ -10,7 +9,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 1) {
 
 $message = "";
 
-// Hàm hỗ trợ upload ảnh
 function uploadImage($file) {
     // Đường dẫn thư mục lưu ảnh (tính từ file hiện tại)
     $target_dir = "../public/img/";
@@ -20,7 +18,6 @@ function uploadImage($file) {
         mkdir($target_dir, 0777, true);
     }
 
-    // Tạo tên file mới để tránh trùng lặp (Time + Tên gốc)
     $filename = time() . "_" . basename($file["name"]);
     $target_file = $target_dir . $filename;
     
@@ -30,16 +27,13 @@ function uploadImage($file) {
 
     // Upload file
     if (move_uploaded_file($file["tmp_name"], $target_file)) {
-        // Trả về đường dẫn để lưu vào DB (Đường dẫn tuyệt đối tính từ web root)
         return "/public/img/" . $filename;
     }
     return false;
 }
 
-// 2. XỬ LÝ FORM
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
-    // A. THÊM SẢN PHẨM
     if (isset($_POST['add_product'])) {
         $name = $_POST['name'];
         $cat_id = $_POST['category_id'];
@@ -48,9 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $desc = $_POST['description'];
         $is_active = isset($_POST['is_active']) ? 1 : 0;
         
-        $imagePath = ""; // Mặc định rỗng hoặc ảnh placeholder
+        $imagePath = ""; 
         
-        // Xử lý upload ảnh
         if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
             $uploaded = uploadImage($_FILES['image']);
             if ($uploaded) {
@@ -70,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $message = "Thêm sản phẩm thành công!";
     }
 
-    // B. CẬP NHẬT SẢN PHẨM
+    // CẬP NHẬT SẢN PHẨM
     if (isset($_POST['update_product'])) {
         $id = $_POST['prod_id'];
         $name = $_POST['name'];
@@ -79,11 +72,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stock = $_POST['stock'];
         $desc = $_POST['description'];
         $is_active = isset($_POST['is_active']) ? 1 : 0;
-        $old_image = $_POST['old_image']; // Đường dẫn ảnh cũ
+        $old_image = $_POST['old_image']; 
 
-        $imagePath = $old_image; // Mặc định giữ ảnh cũ
-
-        // Nếu người dùng chọn ảnh mới
+        $imagePath = $old_image; 
         if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
             $uploaded = uploadImage($_FILES['image']);
             if ($uploaded) {
@@ -102,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// C. XÓA SẢN PHẨM
+//XÓA SẢN PHẨM
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
     
@@ -121,8 +112,8 @@ if (isset($_GET['delete'])) {
     exit;
 }
 
-// 3. LẤY DỮ LIỆU
-// Lấy danh sách danh mục (cho Dropdown)
+//LẤY DỮ LIỆU
+// Lấy danh sách danh mụ
 $cats = $conn->query("SELECT * FROM categories")->fetchAll(PDO::FETCH_ASSOC);
 
 // Lấy danh sách sản phẩm (kèm tên danh mục)

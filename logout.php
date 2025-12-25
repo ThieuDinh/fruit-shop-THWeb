@@ -7,7 +7,6 @@ if (isset($_SESSION['user_id'])) {
     $stmt->execute([':id' => $_SESSION['user_id']]);
 }
 if (isset($_COOKIE['remember_token'])) {
-    // setcookie(tên, rỗng, quá khứ, đường dẫn, domain, secure, httponly)
     setcookie('remember_token', '', time() - 3600, "/", "", false, true);
     unset($_COOKIE['remember_token']);
 }
@@ -15,7 +14,6 @@ if (isset($_COOKIE['remember_token'])) {
 session_unset();
 session_destroy();
 
-// Chuyển hướng về trang login
 header("Location: login.php");
 exit();
 ?>

@@ -16,10 +16,10 @@
                         </div>
                         <div class="col-lg-3">
                             <div class="d-flex justify-content-end pt-3">
-                                <a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-youtube"></i></a>
-                                <a class="btn btn-outline-secondary btn-md-square rounded-circle" href=""><i class="fab fa-linkedin-in"></i></a>
+                                <a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href="coming_soon.php"><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href="coming_soon.php"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href="coming_soon.php"><i class="fab fa-youtube"></i></a>
+                                <a class="btn btn-outline-secondary btn-md-square rounded-circle" href="coming_soon.php"><i class="fab fa-linkedin-in"></i></a>
                             </div>
                         </div>
                     </div>
@@ -35,22 +35,22 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="d-flex flex-column text-start footer-item">
                             <h4 class="text-light mb-3">Thông tin cửa hàng</h4>
-                            <a class="btn-link" href="">Về chúng tôi</a>
-                            <a class="btn-link" href="">Liên hệ</a>
-                            <a class="btn-link" href="">Chính sách bảo mật</a>
-                            <a class="btn-link" href="">Điều khoản & Điều kiện</a>
-                            <a class="btn-link" href="">Chính sách hoàn trả</a>
-                            <a class="btn-link" href="">FAQs & Help</a>
+                            <a class="btn-link" href="coming_soon.php">Về chúng tôi</a>
+                            <a class="btn-link" href="coming_soon.php">Liên hệ</a>
+                            <a class="btn-link" href="coming_soon.php">Chính sách bảo mật</a>
+                            <a class="btn-link" href="coming_soon.php">Điều khoản & Điều kiện</a>
+                            <a class="btn-link" href="coming_soon.php">Chính sách hoàn trả</a>
+                            <a class="btn-link" href="coming_soon.php">FAQs & Help</a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <div class="d-flex flex-column text-start footer-item">
                             <h4 class="text-light mb-3">Tài khoản</h4>
-                            <a class="btn-link" href="">Tài khoản của tôi</a>
-                            <a class="btn-link" href="">Chi tiết cửa hàng</a>
-                            <a class="btn-link" href="">Giỏ hàng</a>
-                            <a class="btn-link" href="">Danh sách yêu thích</a>
-                            <a class="btn-link" href="">Lịch sử đặt hàng</a>
+                            <a class="btn-link" href="coming_soon.php">Tài khoản của tôi</a>
+                            <a class="btn-link" href="coming_soon.php">Chi tiết cửa hàng</a>
+                            <a class="btn-link" href="coming_soon.php">Giỏ hàng</a>
+                            <a class="btn-link" href="coming_soon.php">Danh sách yêu thích</a>
+                            <a class="btn-link" href="coming_soon.php">Lịch sử đặt hàng</a>
                             <a class="btn-link" href="">Đơn hàng quốc tế</a>
                         </div>
                     </div>
