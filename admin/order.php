@@ -2,26 +2,21 @@
 session_start();
 require_once '../config/database.php';
 
-// 1. CHECK ADMIN
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 1) {
     header("Location: ../login.php");
     exit;
 }
-
 $message = "";
 
-// 2. XỬ LÝ CẬP NHẬT TRẠNG THÁI
-// 2. XỬ LÝ CẬP NHẬT TRẠNG THÁI
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
     $order_id = $_POST['order_id'];
-    $new_status = $_POST['status']; // Lấy trạng thái mới từ form
-
-    // A. Lấy trạng thái cũ từ DB trước
+    $new_status = $_POST['status']; 
+    //kiểm tra trạng thái
     $stmt_check = $conn->prepare("SELECT status FROM orders WHERE id = :id");
     $stmt_check->execute([':id' => $order_id]);
     $current_status = $stmt_check->fetchColumn();
-
-    // B. Logic Hoàn kho (Restock) khi HỦY đơn
+    
+    // hoàn kho
     if ($new_status == 'cancelled' && $current_status != 'cancelled') {
         // Lấy chi tiết đơn hàng
         $stmt_items = $conn->prepare("SELECT product_id, quantity FROM order_details WHERE order_id = :id");
@@ -40,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
         }
     }
 
-    // C. Logic Trừ kho lại (Deduct) khi KHÔI PHỤC đơn (Từ Cancelled -> Khác)
+    // khôi phục đơn
     if ($current_status == 'cancelled' && $new_status != 'cancelled') {
         $stmt_items = $conn->prepare("SELECT product_id, quantity FROM order_details WHERE order_id = :id");
         $stmt_items->execute([':id' => $order_id]);
@@ -62,12 +57,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
     $stmt = $conn->prepare("UPDATE orders SET status = :status WHERE id = :id");
     $stmt->execute([':status' => $new_status, ':id' => $order_id]);
     $message = "Cập nhật đơn hàng thành công!";
+
 }
 
-// 3. XỬ LÝ XÓA ĐƠN HÀNG (Chỉ cho xóa đơn đã hủy để dọn dẹp)
+// xóa đơn hàng bị cancel
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
-    // Xóa chi tiết trước (do ràng buộc khóa ngoại)
+
     $conn->prepare("DELETE FROM order_details WHERE order_id = :id")->execute([':id' => $id]);
     // Xóa đơn hàng
     $conn->prepare("DELETE FROM orders WHERE id = :id")->execute([':id' => $id]);
@@ -75,8 +71,6 @@ if (isset($_GET['delete'])) {
     exit;
 }
 
-// 4. LẤY DANH SÁCH ĐƠN HÀNG
-// Join bảng users để lấy tên người đặt (nếu có tài khoản)
 $sql = "SELECT o.*, u.full_name 
         FROM orders o 
         LEFT JOIN users u ON o.user_id = u.id 
